@@ -1,8 +1,11 @@
+## FaceFusion 3 NSFW-Fix with Frame Skip
+![Image](https://github.com/user-attachments/assets/1f859424-0509-488d-84a2-bb7da15b4694)
+
 Here's the complete update for your README, incorporating all the changes we've made to the content analyzer, as well as adding the necessary details for the frame skip logic and avoiding OpenCV errors.
 
 ---
 
-## FaceFusion 3 NSFW-Fix with Frame Skip
+
 
 ### **Why You Should Apply This Fix 🛠️**
 - **Total Privacy:** Run FaceFusion entirely locally. Your data stays on your device, and nothing is shared online.
