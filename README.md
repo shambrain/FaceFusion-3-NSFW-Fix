@@ -23,7 +23,7 @@ FaceFusion 3 NSFW-Fix is the ultimate solution to run FaceFusion locally, giving
 
 ### **How to Apply the Fix 🔥**
 1. **Download the Fix:** Clone or download the FaceFusion 3 NSFW-Fix repository.
-2. **Locate the `content_analyser.py` File:** Go to `pinokio\api\facefusion-pinokio.git\facefusion\facefusion`.
+2. **Locate the `content_analyser.py` File:** Go to `pinokio\api\facefusion-pinokio.git\facefusion\facefusion\`.
 3. **Replace the File:** Replace the existing `content_analyser.py` file with the modified one from the fix.
 4. **Make the File Read-Only:** Right-click on `content_analyser.py`, select Properties, and check Read-only. This prevents future updates from overwriting your fix.
 
