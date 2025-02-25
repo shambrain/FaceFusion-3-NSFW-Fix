@@ -1,13 +1,14 @@
 # FaceFusion 3 NSFW-Fix ✨
 ![Image](https://github.com/user-attachments/assets/1f859424-0509-488d-84a2-bb7da15b4694)
 
+Here's the update: In the prepare_frame function, I've added a simple check to make sure the vision_frame isn't None or empty (vision_frame.size == 0) before resizing and processing it. This little fix prevents the OpenCV cv2.resize error that pops up when trying to process an empty frame. It's a small change, but it makes a huge difference!
+
+By removing the NSFW check, you take control of what you create while keeping your data **secure and private**. Perfect for those who want to work freely, without the worry of data being shared or stored elsewhere. 🚀 
+**No more restrictions**, no more waiting, just you, your content, and a tool that works exactly how you want it. Enjoy the power of FaceFusion, now fully under your control. 🔒
+
 ## About 🌟
 
 **FaceFusion 3 NSFW-Fix** is the ultimate solution to run FaceFusion locally, giving you full **privacy** and **personal control** over your projects. Say goodbye to the NSFW filter that slows down your process and stops you from freely working with your content. With this fix, everything stays **on your machine**—**no uploads**, **no external servers**, just pure **local processing**.
-
-By removing the NSFW check, you take control of what you create while keeping your data **secure and private**. Perfect for those who want to work freely, without the worry of data being shared or stored elsewhere. 🚀
-
-**No more restrictions**, no more waiting, just you, your content, and a tool that works exactly how you want it. Enjoy the power of FaceFusion, now fully under your control. 🔒
 
 ## How to Apply the Fix 🔥
 
