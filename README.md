@@ -1,8 +1,3 @@
-# FaceFusion-3-NSFW-Fix
-Here's a README that summarizes the fix and provides clear instructions for others to apply it:
-
----
-
 # FaceFusion 3 NSFW-Fix
 
 **Description:**
