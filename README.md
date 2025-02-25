@@ -8,13 +8,6 @@ By removing the NSFW check, you take control of what you create while keeping yo
 
 **No more restrictions**, no more waiting, just you, your content, and a tool that works exactly how you want it. Enjoy the power of FaceFusion, now fully under your control. 🔒
 
-## Why You Should Apply This Fix 🛠️
-
-- **Total Privacy**: Run FaceFusion entirely **locally**. Your data stays on your device, and nothing is shared online.
-- **Full Control**: Disable the NSFW filter to unlock fast, unrestricted image and video processing.
-- **No More Worries**: Never worry about the developers pushing updates that break your workflow or limit your capabilities. With this fix, you're in charge.
-- **Speed & Efficiency**: Skip the unnecessary checks and enjoy a faster, smoother processing experience.
-
 ## How to Apply the Fix 🔥
 
 1. **Download the Fix**: Clone or download the **FaceFusion 3 NSFW-Fix** repository.
@@ -22,6 +15,13 @@ By removing the NSFW check, you take control of what you create while keeping yo
    Go to `pinokio\api\facefusion-pinokio.git\facefusion\facefusion`.
 3. **Replace the File**: Replace the existing `content_analyser.py` file with the modified one from the fix.
 4. **Make the File Read-Only**: Right-click on `content_analyser.py`, select **Properties**, and check **Read-only**. This prevents future updates from overwriting your fix.
+
+## Why You Should Apply This Fix 🛠️
+
+- **Total Privacy**: Run FaceFusion entirely **locally**. Your data stays on your device, and nothing is shared online.
+- **Full Control**: Disable the NSFW filter to unlock fast, unrestricted image and video processing.
+- **No More Worries**: Never worry about the developers pushing updates that break your workflow or limit your capabilities. With this fix, you're in charge.
+- **Speed & Efficiency**: Skip the unnecessary checks and enjoy a faster, smoother processing experience.
 
 ## Final Thoughts 🤩
 
