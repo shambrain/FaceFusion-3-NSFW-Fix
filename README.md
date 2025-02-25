@@ -11,7 +11,8 @@ Here's the complete update for your README, incorporating all the changes we've 
 - **Total Privacy:** Run FaceFusion entirely locally. Your data stays on your device, and nothing is shared online.
 - **Full Control:** Disable the NSFW filter to unlock fast, unrestricted image and video processing.
 - **No More Worries:** Never worry about the developers pushing updates that break your workflow or limit your capabilities. With this fix, you're in charge.
-- **Speed & Efficiency:** Skip unnecessary checks and enjoy a faster, smoother processing experience. The frame skipping version automatically bypasses any invalid or empty frames, improving performance and **avoiding errors like OpenCV resize errors** (e.g., `D:/a/opencv-python/opencv-python/opencv/modules/imgproc/src/resize.cpp`).
+- **Speed & Efficiency:** Skip unnecessary checks and enjoy a faster, smoother processing experience. The frame skipping version automatically bypasses any invalid or empty frames, improving performance and **avoiding 
+   errors like OpenCV resize errors** (e.g., `D:/a/opencv-python/opencv-python/opencv/modules/imgproc/src/resize.cpp`).
 - **Improved Performance:** The `prepare_frame` function has been updated to check if frames are `None` or empty (`frame.size == 0`) before processing, which prevents OpenCV from trying to resize invalid frames and causing errors.
 
 ---
@@ -55,7 +56,3 @@ Skipping invalid or empty frames makes the processing faster and more efficient 
 By using FaceFusion 3 NSFW-Fix, you're not just fixing the tool, you're taking back control of your privacy. Experience a tool that's as flexible and local as you need it to be. Enjoy faster processing, more freedom, and the peace of mind that comes with knowing your data stays in your hands. 💪
 
 ---
-
-This update clearly explains the frame skip logic, removal of the NSFW filter, and how the changes will improve your workflow and avoid errors. The description emphasizes the main benefits of using this fix and reassures users that the tool will now run more efficiently and without issues like the OpenCV resize error.
-
-Let me know if you need anything else!
