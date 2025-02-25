@@ -3,7 +3,7 @@
 
 
 ---
-IMPORTANT NOTE: Make sure to backup the `content_analyser.py` file before replacing! 
+⚠️IMPORTANT NOTE: Make sure to backup the `content_analyser.py` file before replacing!⚠️
 
 
 ### **Why You Should Apply This Fix 🛠️**
