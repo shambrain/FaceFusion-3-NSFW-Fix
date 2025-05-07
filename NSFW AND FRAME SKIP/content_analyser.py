@@ -1,14 +1,13 @@
 from functools import lru_cache
-
 import cv2
 import numpy
+from typing import Any
 from tqdm import tqdm
 
 from facefusion import inference_manager, state_manager, wording
 from facefusion.download import conditional_download_hashes, conditional_download_sources
 from facefusion.filesystem import resolve_relative_path
 from facefusion.thread_helper import conditional_thread_semaphore
-from facefusion.typing import DownloadScope, Fps, InferencePool, ModelOptions, ModelSet, VisionFrame
 from facefusion.vision import detect_video_fps, get_video_frame, read_image
 
 # -----[ constants ]-----
@@ -18,14 +17,12 @@ STREAM_COUNTER = 0
 
 
 @lru_cache(maxsize=None)
-def create_static_model_set(download_scope: DownloadScope) -> ModelSet:
+def create_static_model_set(download_scope: Any) -> dict:
     # NSFW model removed from pipeline
-    # We no longer download, load, or reference the open_nsfw model
-    # Removal ensures streamlined processing for facefusion without blocking safe inputs
     return {}  # Empty model set
 
 
-def get_inference_pool() -> InferencePool:
+def get_inference_pool() -> dict:
     # No NSFW model is used anymore — returning empty inference pool
     return inference_manager.get_inference_pool(__name__, {})
 
@@ -34,7 +31,7 @@ def clear_inference_pool() -> None:
     inference_manager.clear_inference_pool(__name__)
 
 
-def get_model_options() -> ModelOptions:
+def get_model_options() -> dict:
     # NSFW model options removed — not needed for inference now
     return {}
 
@@ -44,7 +41,7 @@ def pre_check() -> bool:
     return True
 
 
-def analyse_stream(vision_frame: VisionFrame, video_fps: Fps) -> bool:
+def analyse_stream(vision_frame: Any, video_fps: int) -> bool:
     global STREAM_COUNTER
 
     STREAM_COUNTER += 1
@@ -53,27 +50,28 @@ def analyse_stream(vision_frame: VisionFrame, video_fps: Fps) -> bool:
     return False
 
 
-def analyse_frame(vision_frame: VisionFrame) -> bool:
+def analyse_frame(vision_frame: Any) -> bool:
     vision_frame = prepare_frame(vision_frame)
-    # Removed NSFW forward model — replaced with placeholder logic
+    if vision_frame is None:
+        return False  # Skip processing if frame was invalid
+
+    # NSFW content analyzer removed — replaced with safe dummy logic
     probability = forward(vision_frame)
     return probability > PROBABILITY_LIMIT
 
 
-def forward(vision_frame: VisionFrame) -> float:
-    # Placeholder for forward inference — NSFW model no longer called
-    # Can be adapted for future models if needed
+def forward(vision_frame: Any) -> float:
+    # Placeholder for future model logic
     return 0.0
 
 
-def prepare_frame(vision_frame: VisionFrame) -> VisionFrame:
+def prepare_frame(vision_frame: Any) -> Any:
     if vision_frame is None or vision_frame.size == 0:
-        # Added check: skip invalid/empty frames
-        # Prevents crashes in pipeline
+        # Skip invalid/empty frames
         return None
 
-    model_size = get_model_options().get('size', (224, 224))  # Default size
-    model_mean = get_model_options().get('mean', [104, 117, 123])  # Default mean
+    model_size = get_model_options().get('size', (224, 224))
+    model_mean = get_model_options().get('mean', [104, 117, 123])
 
     vision_frame = cv2.resize(vision_frame, model_size).astype(numpy.float32)
     vision_frame -= numpy.array(model_mean).astype(numpy.float32)
@@ -94,14 +92,19 @@ def analyse_video(video_path: str, trim_frame_start: int, trim_frame_end: int) -
     rate = 0.0
     counter = 0
 
-    with tqdm(total=len(frame_range), desc=wording.get('analysing'), unit='frame', ascii=' =', disable=state_manager.get_item('log_level') in ['warn', 'error']) as progress:
+    with tqdm(
+        total=len(frame_range),
+        desc=wording.get('analysing'),
+        unit='frame',
+        ascii=' =',
+        disable=state_manager.get_item('log_level') in ['warn', 'error']
+    ) as progress:
         for frame_number in frame_range:
             if frame_number % int(video_fps) == 0:
                 vision_frame = get_video_frame(video_path, frame_number)
 
-                # Skip empty/invalid frames to ensure robustness
                 if vision_frame is None or vision_frame.size == 0:
-                    continue
+                    continue  # Skip invalid frames
 
                 if analyse_frame(vision_frame):
                     counter += 1
