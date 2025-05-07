@@ -8,9 +8,8 @@ from facefusion import inference_manager, state_manager, wording
 from facefusion.download import conditional_download_hashes, conditional_download_sources
 from facefusion.filesystem import resolve_relative_path
 from facefusion.thread_helper import conditional_thread_semaphore
-from facefusion.vision import detect_video_fps, get_video_frame, read_image
+from facefusion.vision import detect_video_fps, read_video_frame, read_image
 
-# -----[ constants ]-----
 PROBABILITY_LIMIT = 0.80
 RATE_LIMIT = 10
 STREAM_COUNTER = 0
@@ -18,12 +17,12 @@ STREAM_COUNTER = 0
 
 @lru_cache(maxsize=None)
 def create_static_model_set(download_scope: Any) -> dict:
-    # NSFW model removed from pipeline
-    return {}  # Empty model set
+    # NSFW model removed
+    return {}
 
 
 def get_inference_pool() -> dict:
-    # No NSFW model is used anymore — returning empty inference pool
+    # Return empty inference pool since NSFW is removed
     return inference_manager.get_inference_pool(__name__, {})
 
 
@@ -32,18 +31,17 @@ def clear_inference_pool() -> None:
 
 
 def get_model_options() -> dict:
-    # NSFW model options removed — not needed for inference now
+    # No NSFW model options needed
     return {}
 
 
 def pre_check() -> bool:
-    # Skipping NSFW model hash/source checks — not needed
+    # No NSFW model hashes to verify
     return True
 
 
 def analyse_stream(vision_frame: Any, video_fps: int) -> bool:
     global STREAM_COUNTER
-
     STREAM_COUNTER += 1
     if STREAM_COUNTER % int(video_fps) == 0:
         return analyse_frame(vision_frame)
@@ -52,24 +50,16 @@ def analyse_stream(vision_frame: Any, video_fps: int) -> bool:
 
 def analyse_frame(vision_frame: Any) -> bool:
     vision_frame = prepare_frame(vision_frame)
-    if vision_frame is None:
-        return False  # Skip processing if frame was invalid
-
-    # NSFW content analyzer removed — replaced with safe dummy logic
     probability = forward(vision_frame)
     return probability > PROBABILITY_LIMIT
 
 
 def forward(vision_frame: Any) -> float:
-    # Placeholder for future model logic
+    # Placeholder logic: always returns 0.0 since NSFW model is removed
     return 0.0
 
 
 def prepare_frame(vision_frame: Any) -> Any:
-    if vision_frame is None or vision_frame.size == 0:
-        # Skip invalid/empty frames
-        return None
-
     model_size = get_model_options().get('size', (224, 224))
     model_mean = get_model_options().get('mean', [104, 117, 123])
 
@@ -101,14 +91,9 @@ def analyse_video(video_path: str, trim_frame_start: int, trim_frame_end: int) -
     ) as progress:
         for frame_number in frame_range:
             if frame_number % int(video_fps) == 0:
-                vision_frame = get_video_frame(video_path, frame_number)
-
-                if vision_frame is None or vision_frame.size == 0:
-                    continue  # Skip invalid frames
-
+                vision_frame = read_video_frame(video_path, frame_number)
                 if analyse_frame(vision_frame):
                     counter += 1
-
             rate = counter * int(video_fps) / len(frame_range) * 100
             progress.update()
             progress.set_postfix(rate=rate)
