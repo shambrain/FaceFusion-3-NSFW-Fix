@@ -5,6 +5,14 @@
 ---
 ⚠️IMPORTANT NOTE: Make sure to backup the `content_analyser.py` file before replacing!⚠️
 
+🔧 What’s changed in our 3.2 fix:
+✅ NSFW model removed completely — nothing is loaded, evaluated, or scored.
+
+✅ Frame skipping added — prevents crashes from empty/corrupted video frames.
+
+✅ All functions return safe defaults — ensures compatibility with FaceFusion 3.2’s internal logic.
+
+✅ Clean structure preserved — no hacks, no commented code, no bypasses — just a working drop-in fix.
 
 ### **Why You Should Apply This Fix 🛠️**
 - **Total Privacy:** Run FaceFusion entirely locally. Your data stays on your device, and nothing is shared online.
