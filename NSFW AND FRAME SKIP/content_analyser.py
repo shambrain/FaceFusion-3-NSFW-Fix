@@ -25,9 +25,10 @@ def get_inference_pool() -> dict:
     # Return empty inference pool since NSFW is removed
     return inference_manager.get_inference_pool(__name__, {})
 
-
+  
 def clear_inference_pool() -> None:
-    inference_manager.clear_inference_pool(__name__)
+    # Since no NSFW models are used, we pass an empty list
+    inference_manager.clear_inference_pool(__name__, [])
 
 
 def get_model_options() -> dict:
