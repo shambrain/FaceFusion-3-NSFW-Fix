@@ -1,65 +1,65 @@
-## FaceFusion 3 NSFW-Fix with Frame Skip
-![Image](https://github.com/user-attachments/assets/1f859424-0509-488d-84a2-bb7da15b4694)
+# FaceFusion 3 NSFW-Fix with Frame Skip  
+![Preview](https://github.com/user-attachments/assets/1f859424-0509-488d-84a2-bb7da15b4694)
 
-
----
-⚠️IMPORTANT NOTE: Make sure to backup the `content_analyser.py` file before replacing!⚠️
-
-🔧 What’s changed in our 3.2 fix:
-✅ NSFW model removed completely — nothing is loaded, evaluated, or scored.
-
-✅ Frame skipping added — prevents crashes from empty/corrupted video frames.
-
-✅ All functions return safe defaults — ensures compatibility with FaceFusion 3.2’s internal logic.
-
-✅ Clean structure preserved — no hacks, no commented code, no bypasses — just a working drop-in fix.
-
-### **Why You Should Apply This Fix 🛠️**
-- **Total Privacy:** Run FaceFusion entirely locally. Your data stays on your device, and nothing is shared online.
-- **Full Control:** Disable the NSFW filter to unlock fast, unrestricted image and video processing.
-- **No More Worries:** Never worry about the developers pushing updates that break your workflow or limit your capabilities. With this fix, you're in charge.
-- **Speed & Efficiency:** Skip unnecessary checks and enjoy a faster, smoother processing experience. The frame skipping version automatically bypasses any invalid or empty frames, improving performance and **avoiding 
-   errors like OpenCV resize errors** (e.g., `D:/a/opencv-python/opencv-python/opencv/modules/imgproc/src/resize.cpp`).
-- **Improved Performance:** The `prepare_frame` function has been updated to check if frames are `None` or empty (`frame.size == 0`) before processing, which prevents OpenCV from trying to resize invalid frames and causing errors.
+> ⚠️ **IMPORTANT:** Always back up your original `content_analyser.py` file before replacing it with the fix!
 
 ---
 
-### **About 🌟**
-FaceFusion 3 NSFW-Fix is the ultimate solution to run FaceFusion locally, giving you full privacy and personal control over your projects. Say goodbye to the NSFW filter that slows down your process and stops you from freely working with your content. With this fix, everything stays on your machine—no uploads, no external servers, just pure local processing.
+## 🔧 What’s New in the 3.2 Fix
+- ✅ **NSFW model removed completely** — nothing is loaded, evaluated, or scored.  
+- ✅ **Frame skipping added** — skips empty/corrupted frames to avoid crashes during processing.  
+- ✅ **Safe defaults returned** — keeps FaceFusion’s logic intact with no side effects.  
+- ✅ **Clean architecture** — no hacks, no commented-out code, no fragile workarounds.
 
 ---
 
-### **How to Apply the Fix 🔥**
-1. **Download the Fix:** Clone or download the FaceFusion 3 NSFW-Fix repository.
-2. **Locate the `content_analyser.py` File:** Go to `pinokio\api\facefusion-pinokio.git\facefusion\facefusion\`.
-3. **Replace the File:** Replace the existing `content_analyser.py` file with the modified one from the fix.
-4. **Make the File Read-Only:** Right-click on `content_analyser.py`, select Properties, and check Read-only. This prevents future updates from overwriting your fix.
-
----
-
-### **Changes & Improvements 🔧**
-
-#### **1. NSFW Check Removal:**
-By removing the NSFW check, you now have full control over the content you're processing, keeping your data secure and private. No more worrying about content being flagged or shared—just you and your content. This makes the tool more flexible and suitable for anyone who doesn't need or want the NSFW filter.
-
-#### **2. Frame Skipping to Prevent OpenCV Errors:**
-In the updated `prepare_frame` function, we added a simple check to make sure the `vision_frame` isn't `None` or empty (`vision_frame.size == 0`) before resizing and processing it. This little fix prevents the **OpenCV `cv2.resize` error** that pops up when trying to process an empty or invalid frame. 
-
-**Before:**
-- If a frame was invalid, `cv2.resize` would crash the program, causing errors like:
+## 🌟 Why You Should Apply This Fix
+- **Total Privacy** – Everything runs locally. No uploads. No online scanning.  
+- **Full Control** – Remove NSFW filtering to freely process any content.  
+- **No More Breaks** – Future updates won’t disrupt your workflow.  
+- **Better Stability** – Skips bad frames, preventing OpenCV crashes like:  
   ```
   D:/a/opencv-python/opencv-python/opencv/modules/imgproc/src/resize.cpp
   ```
-  
-**After:**
-- Invalid frames are now skipped entirely, and the system moves on to the next frame, ensuring smoother processing without errors. This significantly improves performance and avoids crashes.
-
-#### **3. Improved Performance:**
-Skipping invalid or empty frames makes the processing faster and more efficient by preventing the tool from wasting time on frames that would result in errors.
+- **Improved Performance** – Faster processing by ignoring frames that would otherwise throw errors.
 
 ---
 
-### **Final Thoughts 🤩**
-By using FaceFusion 3 NSFW-Fix, you're not just fixing the tool, you're taking back control of your privacy. Experience a tool that's as flexible and local as you need it to be. Enjoy faster processing, more freedom, and the peace of mind that comes with knowing your data stays in your hands. 💪
+## ⚙️ How to Apply the Fix
+1. **Download** this repository or just the updated `content_analyser.py` file.  
+2. **Navigate to:**  
+   ```
+   pinokio\api\facefusion-pinokio.git\facefusion\facefusion\
+   ```
+3. **Replace** the existing `content_analyser.py` with the one from this fix.  
+4. *(Optional but recommended)*: **Set it to Read-Only** to prevent future updates from overwriting it:
+   - Right-click → Properties → Check “Read-only” → Apply
 
 ---
+
+## 🔍 Key Fix Details
+
+### 1. 🛡️ NSFW Check Removed  
+The NSFW model has been cleanly removed. No loading, no evaluation, and no scoring. This gives you full creative control and ensures nothing is flagged or limited during processing.
+
+### 2. 🚫 Frame Skipping Added  
+Empty or invalid frames often cause crashes in OpenCV, especially when passed to `cv2.resize()`.  
+This fix adds a check:
+```python
+if vision_frame is None or vision_frame.size == 0:
+    return None  # skip it
+```
+This prevents runtime errors and improves stability.
+
+### 3. ⚡ Efficiency Boost  
+Skipping bad frames means less wasted processing and faster results, especially on long or low-quality videos.
+
+---
+
+## ✅ About the Fix
+**FaceFusion 3 NSFW-Fix with Frame Skip** lets you run FaceFusion 3.2 locally with no NSFW filtering and smarter frame handling. No models are uploaded or scanned. It’s faster, safer, and gives you total control over what you process—perfect for creators who want a private and unrestricted workflow.
+
+---
+
+## 💬 Final Thoughts
+You're not just fixing a bug—you’re reclaiming control. Enjoy a smoother, faster, and private FaceFusion experience. No filters, no crashes, no limits. 💪
