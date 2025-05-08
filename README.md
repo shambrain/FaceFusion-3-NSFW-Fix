@@ -49,66 +49,64 @@
 
 ## ⚙️ How to Apply the NSFW Fix for FaceFusion 3.2
 
-### 🧩 Option 1: 🖥️ Pinokio Version
+### 🛠️ Option 1: Pinokio Version
 
-1️⃣ **Download** the fixed `content_analyser.py` file (✅ NSFW-Fix or ✅ NSFW-Fix with Frame Skip).
+1. **Download** the fixed `content_analyser.py` (choose either the NSFW-Fix or NSFW-Fix with Frame Skip).
 
-2️⃣ **Open the folder** in File Explorer:  
-📂  
-```
-C:\pinokio\api\facefusion-pinokio.git\facefusion\facefusion\
-```
+2. **Navigate to the folder**:
+   ```
+   C:\pinokio\api\facefusion-pinokio.git\facefusion\facefusion\
+   ```
 
-3️⃣ **Replace** the old file with the new one:
-- ✂️ Delete the old `content_analyser.py`  
-- 📥 Paste the new `content_analyser.py` into the folder
+3. **Replace** the existing `content_analyser.py` with your downloaded version.
 
-4️⃣ *(Optional)* 🔒 **Lock the file** to prevent overwrites:
-- 🖱️ Right-click → 🛠️ Properties → ☑️ Check “Read-only” → ✅ Apply
+4. *(Optional)* **Make the file read-only** to avoid overwrites:
+   - Right-click `content_analyser.py` → Properties → Check “Read-only” → Apply
 
 ---
 
-### 🧩 Option 2: 💾 Locally Installed FaceFusion
+### 🛠️ Option 2: Locally Installed FaceFusion
 
-1️⃣ **Locate** your FaceFusion folder. Typical paths:
+1. **Find your FaceFusion installation folder**. Common paths:
 
-🪟 Windows:  
-📂  
-```
-C:\Users\<YourUsername>\facefusion\
-```
-or  
-📂  
-```
-C:\facefusion-master\
-```
+   - Windows:
+     ```
+     C:\Users\<YourUsername>\facefusion\
+     or
+     C:\facefusion-master\
+     ```
 
-🐧 macOS/Linux:  
-📂  
-```
-~/facefusion/
-```
+   - macOS/Linux:
+     ```
+     ~/facefusion/
+     ```
 
-2️⃣ **Navigate to** the internal facefusion directory:  
-📁  
-```
-<your_installation_path>/facefusion/
-```
+2. **Go to** the internal `facefusion` subdirectory:
+   ```
+   <installation_path>/facefusion/
+   ```
 
-3️⃣ **Replace** `content_analyser.py`:
-- 📥 Drop in the fixed version to overwrite the old one
+3. **Replace** `content_analyser.py` in that folder with the fixed version.
 
-4️⃣ *(Optional)* 🔐 **Make it read-only**:
-
-🪟 Windows:  
-- 🖱️ Right-click → Properties → ☑️ Read-only
-
-🐧 macOS/Linux:  
-```bash
-chmod 444 content_analyser.py
-```
+4. *(Optional)* Set it as read-only:
+   - Windows:
+     - Right-click `content_analyser.py` → Properties → Check “Read-only”
+   - macOS/Linux:
+     ```
+     chmod 444 content_analyser.py
+     ```
 
 ---
+
+### ✅ Verify It Works
+
+After replacing the file, run:
+```
+python facefusion.py run
+```
+
+You should no longer get NSFW model or OpenCV resize errors. Corrupted or invalid frames will be skipped gracefully without crashing.
+
 
 ### ✅ Final Step: 🧪 Test It!
 
