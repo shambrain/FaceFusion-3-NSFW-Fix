@@ -112,18 +112,6 @@ chmod 444 content_analyser.py
 
 ### ✅ Final Step: 🧪 Test It!
 
-🖥️ Run this to verify it's working:
-```
-python facefusion.py run
-```
-
-✅ You should now:
-- 🚫 No longer see NSFW model or OpenCV resize errors
-- 🧼 Have corrupted frames skipped automatically
-- 🎯 Enjoy smooth and safe FaceFusion 3.2 sessions
-
-🎉 Done!
-
 ---
 
 ## 🧠 Developer Notes
