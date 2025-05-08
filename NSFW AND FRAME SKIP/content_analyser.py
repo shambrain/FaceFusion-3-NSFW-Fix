@@ -10,7 +10,7 @@ from facefusion.filesystem import resolve_relative_path
 from facefusion.thread_helper import conditional_thread_semaphore
 from facefusion.vision import detect_video_fps, read_video_frame, read_image
 
-// === CONFIG ===
+# === CONFIG ===
 PROBABILITY_LIMIT = 0.80
 RATE_LIMIT = 10
 STREAM_COUNTER = 0
@@ -18,23 +18,23 @@ STREAM_COUNTER = 0
 
 @lru_cache(maxsize=None)
 def create_static_model_set(download_scope: Any) -> dict:
-    // NSFW model removed — no hashes or sources registered
+    # NSFW model removed — no hashes or sources registered
     return {}
 
 
 def get_inference_pool() -> dict:
-    // Return empty pool to satisfy interface; no NSFW inference needed
+    # Return empty pool to satisfy interface; no NSFW inference needed
     return inference_manager.get_inference_pool(__name__, {})
 
 
 def clear_inference_pool() -> None:
-    // FIX: Some modules still expect `clear_inference_pool(__name__, ['yolo_nsfw'])`
-    // Providing dummy model name for compatibility
-    inference_manager.clear_inference_pool(__name__, ['yolo_nsfw'])  // Placeholder model name
+    # FIX: Some modules still expect clear_inference_pool(__name__, ['yolo_nsfw'])
+    # Providing dummy model name for compatibility
+    inference_manager.clear_inference_pool(__name__, ['yolo_nsfw'])
 
 
 def get_model_options() -> dict:
-    // Provide dummy model options to satisfy downstream prepare_frame() logic
+    # Provide dummy model options to satisfy downstream prepare_frame() logic
     return {
         'size': (224, 224),
         'mean': [104, 117, 123]
@@ -42,7 +42,7 @@ def get_model_options() -> dict:
 
 
 def pre_check() -> bool:
-    // Skip model hash/source check — NSFW model not used
+    # Skip model hash/source check — NSFW model not used
     return True
 
 
@@ -56,7 +56,9 @@ def analyse_stream(vision_frame: Any, video_fps: int) -> bool:
 
 def analyse_frame(vision_frame: Any) -> bool:
     vision_frame = prepare_frame(vision_frame)
-    probability = forward(vision_frame)  // Replaces old detect_nsfw() scoring logic
+    if vision_frame is None:
+        return False  # Skip invalid or empty frames
+    probability = forward(vision_frame)
     return probability > PROBABILITY_LIMIT
 
 
@@ -84,6 +86,8 @@ def analyse_video(video_path: str, trim_frame_start: int, trim_frame_end: int) -
         for frame_number in frame_range:
             if frame_number % int(video_fps) == 0:
                 vision_frame = read_video_frame(video_path, frame_number)
+                if vision_frame is None or vision_frame.size == 0:
+                    continue  # Frame skip logic: ignore bad frames
                 total += 1
                 if analyse_frame(vision_frame):
                     counter += 1
@@ -96,13 +100,14 @@ def analyse_video(video_path: str, trim_frame_start: int, trim_frame_end: int) -
 
 
 def forward(vision_frame: Any) -> float:
-    // This replaces the original model inference (`detect_nsfw()`)
-    // Always returns 0.0 since there's no content check
+    # Stub for removed NSFW model — returns 0.0 for compatibility
     return 0.0
 
 
 def prepare_frame(vision_frame: Any) -> Any:
-    // Safe preprocessing fallback when NSFW model is disabled
+    if vision_frame is None or vision_frame.size == 0:
+        return None  # Frame skip logic: avoid resize crash on invalid frame
+
     model_size = get_model_options().get('size', (224, 224))
     model_mean = get_model_options().get('mean', [104, 117, 123])
 
