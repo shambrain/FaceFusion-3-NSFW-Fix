@@ -29,6 +29,8 @@
 ---
 
 ## 🚫 What Was Causing Errors?
+- Specical thanks to @Digioso for input
+
 - `clear_inference_pool()` in FaceFusion 3.2 now expects a `model_names` list — fixed in both versions.
 - Frame errors like:
   ```
