@@ -5,7 +5,8 @@
 > ⚠️ **IMPORTANT:** Always back up your original `content_analyser.py` before replacing it with any version here!
 
 ---
-
+🙏 Specical thanks to [Digioso](https://github.com/Digioso) for input & feedback!
+---
 ## 📂 Available Versions
 
 ### 🔹 `NSFW-Fix Only`
@@ -29,8 +30,6 @@
 ---
 
 ## 🚫 What Was Causing Errors?
-- Specical thanks to @Digioso for input
-
 - `clear_inference_pool()` in FaceFusion 3.2 now expects a `model_names` list — fixed in both versions.
 - Frame errors like:
   ```
