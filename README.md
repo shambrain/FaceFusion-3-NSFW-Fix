@@ -98,16 +98,6 @@
 
 ---
 
-### ✅ Verify It Works
-
-After replacing the file, run:
-```
-python facefusion.py run
-```
-
-You should no longer get NSFW model or OpenCV resize errors. Corrupted or invalid frames will be skipped gracefully without crashing.
-
-
 ### ✅ Final Step: 🧪 Test It!
 
 ---
