@@ -1,4 +1,4 @@
-# FaceFusion 3 NSFW-Fix 🛡️
+# FaceFusion 3.2 NSFW-Fix 🛡️
 
 ![Preview](https://github.com/user-attachments/assets/1f859424-0509-488d-84a2-bb7da15b4694)
 
